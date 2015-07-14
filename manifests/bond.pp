@@ -44,10 +44,10 @@ define network::bond (
 
   network_if_base { $title:
     ensure       => $ensure,
-    ipaddress    => undef,
-    netmask      => undef,
+    ipaddress    => '',
+    netmask      => '',
     gateway      => undef,
-    macaddress   => undef,
+    macaddress   => '',
     bootproto    => 'none',
     mtu          => $mtu,
     ethtool_opts => $ethtool_opts,
