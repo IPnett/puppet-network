@@ -94,9 +94,9 @@ class network {
 #
 define network_if_base (
   $ensure,
-  $ipaddress,
-  $netmask,
-  $macaddress,
+  $ipaddress = undef,
+  $netmask = undef,
+  $macaddress = undef,
   $gateway = undef,
   $ipv6address = undef,
   $ipv6gateway = undef,
