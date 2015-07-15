@@ -36,6 +36,10 @@ define network::bond::slave (
   $master,
   $ethtool_opts = undef
 ) {
+  # Check for macaddress lookup-command
+  if $macaddress == 'use_from_interface_name' {
+    $macaddress = getvar("\$macaddress_${name}")
+  }
   # Validate our data
   if ! is_mac_address($macaddress) {
     fail("${macaddress} is not a MAC address.")
