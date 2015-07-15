@@ -8,7 +8,7 @@ BOOTPROTO=<%= @bootproto %>
 ONBOOT=<%= @onboot %>
 HOTPLUG=<%= @onboot %>
 TYPE=Ethernet
-<% if @vlanyesno %>VLAN=<%= @vlanyesno %>
+<% if @vlanyes %>VLAN=<%= @vlanyes %>
 <% end -%>
 <% if @ipaddress %>IPADDR=<%= @ipaddress %>
 <% end -%>
