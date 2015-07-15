@@ -52,6 +52,7 @@ define network::if::static (
   $ipaddress,
   $netmask,
   $gateway = undef,
+  $vlan = undef,
   $ipv6address = undef,
   $ipv6init = false,
   $ipv6gateway = undef,
@@ -81,6 +82,7 @@ define network::if::static (
     $macaddy = $macaddress
   }
   # Validate booleans
+  validate_bool($vlan)
   validate_bool($userctl)
   validate_bool($ipv6init)
   validate_bool($ipv6autoconf)
@@ -94,6 +96,7 @@ define network::if::static (
     ipv6address  => $ipv6address,
     netmask      => $netmask,
     gateway      => $gateway,
+    vlan         => $vlan,
     ipv6gateway  => $ipv6gateway,
     ipv6autoconf => $ipv6autoconf,
     macaddress   => $macaddy,
