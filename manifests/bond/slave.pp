@@ -33,18 +33,13 @@
 #
 define network::bond::slave (
   $master,
-  $macaddress = undef,
+  $macaddress = getvar("macaddress_${title}"),
   $ethtool_opts = undef
 ) {
 
-  if $macaddress == undef {
-    $_macaddress = getvar("macaddress_${title}")
-  } else {
-    $_macaddress = $macaddress
-  }
   # Validate our data
-  if ! is_mac_address($_macaddress) {
-    fail("${_macaddress} is not a MAC address.")
+  if ! is_mac_address($macaddress) {
+    fail("${macaddress} is not a MAC address.")
   }
 
   include '::network'
