@@ -33,7 +33,7 @@
 #
 define network::bond::slave (
   $master,
-  $macaddress = getvar("\$macaddress_${name}"),
+  $macaddress = getvar("\$macaddress_${title}"),
   $ethtool_opts = undef
 ) {
 
