@@ -38,7 +38,7 @@ define network::bond::slave (
 ) {
 
   if $macaddress == undef {
-    $_macaddress = getvar("\$macaddress_${title}")
+    $_macaddress = getvar("macaddress_${title}")
   } else {
     $_macaddress = $macaddress
   }
