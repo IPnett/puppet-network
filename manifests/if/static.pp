@@ -52,7 +52,7 @@ define network::if::static (
   $ipaddress,
   $netmask,
   $gateway = undef,
-  $vlan = undef,
+  $vlan = false,
   $ipv6address = undef,
   $ipv6init = false,
   $ipv6gateway = undef,
