@@ -21,6 +21,7 @@
 #   $dns1         - optional
 #   $dns2         - optional
 #   $domain       - optional
+#   $scope        - optional
 #
 # === Actions:
 #
@@ -52,6 +53,7 @@ define network::if::static (
   $ipaddress,
   $netmask,
   $gateway = undef,
+  $vlan = false,
   $ipv6address = undef,
   $ipv6init = false,
   $ipv6gateway = undef,
@@ -65,7 +67,8 @@ define network::if::static (
   $dns1 = undef,
   $dns2 = undef,
   $domain = undef,
-  $linkdelay = undef
+  $linkdelay = undef,
+  $scope = undef
 ) {
   # Validate our data
   if ! is_ip_address($ipaddress) { fail("${ipaddress} is not an IP address.") }
@@ -81,6 +84,7 @@ define network::if::static (
     $macaddy = $macaddress
   }
   # Validate booleans
+  validate_bool($vlan)
   validate_bool($userctl)
   validate_bool($ipv6init)
   validate_bool($ipv6autoconf)
@@ -94,6 +98,7 @@ define network::if::static (
     ipv6address  => $ipv6address,
     netmask      => $netmask,
     gateway      => $gateway,
+    vlan         => $vlan,
     ipv6gateway  => $ipv6gateway,
     ipv6autoconf => $ipv6autoconf,
     macaddress   => $macaddy,
@@ -107,5 +112,6 @@ define network::if::static (
     dns2         => $dns2,
     domain       => $domain,
     linkdelay    => $linkdelay,
+    scope        => $scope,
   }
 } # define network::if::static

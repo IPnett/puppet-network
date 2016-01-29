@@ -3,16 +3,18 @@
 ###
 DEVICE=<%= @interface %>
 BOOTPROTO=<%= @bootproto %>
-<% if @macaddress %>HWADDR=<%= @macaddress %>
+<% if @macaddress and @macaddress != '' %>HWADDR=<%= @macaddress %>
 <% end -%>
 ONBOOT=<%= @onboot %>
 HOTPLUG=<%= @onboot %>
 TYPE=Ethernet
-<% if @ipaddress %>IPADDR=<%= @ipaddress %>
+<% if @vlanyes %>VLAN=<%= @vlanyes %>
 <% end -%>
-<% if @netmask %>NETMASK=<%= @netmask %>
+<% if @ipaddress and @ipaddress != '' %>IPADDR=<%= @ipaddress %>
 <% end -%>
-<% if @gateway %>GATEWAY=<%= @gateway %>
+<% if @netmask and @netmask != '' %>NETMASK=<%= @netmask %>
+<% end -%>
+<% if @gateway and @gateway != '' %>GATEWAY=<%= @gateway %>
 <% end -%>
 <% if @mtu %>MTU=<%= @mtu %>
 <% end -%>
@@ -49,5 +51,12 @@ IPV6INIT=yes
 <% if @bridge %>BRIDGE=<%= @bridge %>
 <% end -%>
 <% if @linkdelay %>LINKDELAY=<%= @linkdelay %>
+<% end -%>
+<% if @scope %>SCOPE="<%= @scope %>"
+<% end -%>
+<% if @check_link_down %>
+check_link_down() {
+ return 1;
+}
 <% end -%>
 NM_CONTROLLED=no
