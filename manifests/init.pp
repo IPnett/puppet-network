@@ -102,9 +102,9 @@ class network {
 #
 define network_if_base (
   $ensure,
+  $macaddress,
   $ipaddress       = undef,
   $netmask         = undef,
-  $macaddress,
   $manage_hwaddr   = true,
   $gateway         = undef,
   $vlan            = false,
