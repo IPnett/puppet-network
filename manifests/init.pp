@@ -133,6 +133,8 @@ define network_if_base (
   $zone            = undef,
   $metric          = undef,
   $isvhost         = false,
+  $phy             = undef,
+  $vrf             = undef,
 ) {
   # Validate our booleans
   validate_bool($vlan)
@@ -145,6 +147,7 @@ define network_if_base (
   validate_bool($check_link_down)
   validate_bool($manage_hwaddr)
   validate_bool($flush)
+  validate_bool($isvhost)
   # Validate our regular expressions
   $states = [ '^up$', '^down$' ]
   validate_re($ensure, $states, '$ensure must be either "up" or "down".')

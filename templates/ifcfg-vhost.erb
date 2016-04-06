@@ -9,6 +9,10 @@ HWADDR=<%= @macaddress %>
 ONBOOT=<%= @onboot %>
 HOTPLUG=<%= @onboot %>
 TYPE=vhost
+<% if @phy and @phy != '' %>PHY=<%= @phy %>
+<% end -%>
+<% if @vrf and @vrf != '' %>VRF=<%= @vrf %>
+<% end -%>
 <% if @vlanyes %>VLAN=<%= @vlanyes %>
 <% end -%>
 <% if @ipaddress and @ipaddress != '' %>IPADDR=<%= @ipaddress %>

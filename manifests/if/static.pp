@@ -43,7 +43,7 @@
 #     domain      => 'is.domain.com domain.com',
 #     ipv6init    => true,
 #     ipv6address => '123:4567:89ab:cdef:123:4567:89ab:cdef'
-#     ipv6gateway => '123:4567:89ab:cdef:123:4567:89ab:1' 
+#     ipv6gateway => '123:4567:89ab:cdef:123:4567:89ab:1'
 #   }
 #
 # === Authors:
@@ -81,6 +81,8 @@ define network::if::static (
   $defroute = undef,
   $metric = undef,
   $isvhost = false,
+  $phy = undef,
+  $vrf = undef,
 ) {
   # Validate our data
   if $ipaddress {
@@ -141,5 +143,7 @@ define network::if::static (
     defroute      => $defroute,
     metric        => $metric,
     isvhost       => $isvhost,
+    phy           => $phy,
+    vrf           => $vrf
   }
 } # define network::if::static
