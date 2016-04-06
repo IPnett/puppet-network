@@ -3,9 +3,6 @@
 ###
 DEVICE=<%= @interface %>
 BOOTPROTO=<%= @bootproto %>
-<% if @manage_hwaddr and @macaddress and @macaddress != '' -%>
-HWADDR=<%= @macaddress %>
-<% end -%>
 ONBOOT=<%= @onboot %>
 HOTPLUG=<%= @onboot %>
 TYPE=vhost
