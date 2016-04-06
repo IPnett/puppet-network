@@ -131,7 +131,8 @@ define network_if_base (
   $flush           = false,
   $defroute        = undef,
   $zone            = undef,
-  $metric          = undef
+  $metric          = undef,
+  $isvhost         = false,
 ) {
   # Validate our booleans
   validate_bool($vlan)
@@ -183,7 +184,11 @@ define network_if_base (
       true    => 'yes',
       default => undef,
     }
-    $iftemplate = template('network/ifcfg-eth.erb')
+    if $isvhost {
+      $iftemplate = template('network/ifcfg-vhost.erb')
+    } else {
+      $iftemplate = template('network/ifcfg-eth.erb')
+    }
   }
 
   if $flush {
