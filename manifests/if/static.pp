@@ -27,6 +27,7 @@
 #   $zone           - optional
 #   $metric         - optional
 #   $defroute       - optional
+#   $isvhost        - optional - defaults to false
 #
 # === Actions:
 #
@@ -78,7 +79,8 @@ define network::if::static (
   $flush = false,
   $zone = undef,
   $defroute = undef,
-  $metric = undef
+  $metric = undef,
+  $isvhost = false,
 ) {
   # Validate our data
   if $ipaddress {
@@ -138,5 +140,6 @@ define network::if::static (
     zone          => $zone,
     defroute      => $defroute,
     metric        => $metric,
+    isvhost       => $isvhost,
   }
 } # define network::if::static
