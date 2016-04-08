@@ -8,7 +8,9 @@ HWADDR=<%= @macaddress %>
 <% end -%>
 ONBOOT=<%= @onboot %>
 HOTPLUG=<%= @onboot %>
-TYPE=vhost
+#ensure we only bring this up when 
+# bridges, bonds and vlans are up.
+TYPE=IPSEC
 <% if @phy and @phy != '' %>PHY=<%= @phy %>
 <% end -%>
 <% if @vrf and @vrf != '' %>VRF=<%= @vrf %>
