@@ -5,7 +5,7 @@ DEVICE=<%= @interface %>
 BOOTPROTO=<%= @bootproto %>
 ONBOOT=<%= @onboot %>
 HOTPLUG=<%= @onboot %>
-#ensure we only bring this up when 
+# ensure we only bring this up when
 # bridges, bonds and vlans are up.
 TYPE=IPSEC
 <% if @phy and @phy != '' %>PHY=<%= @phy %>
@@ -70,3 +70,39 @@ check_link_down() {
 <% if @metric %>METRIC=<%= @metric %>
 <% end -%>
 NM_CONTROLLED=no
+
+# pre-script:
+# reverse-engineering of EL sysvinit network scripts give right here we can
+# execute a pre-script, by matching the conditions below.
+# This file is sourced several times by the various ifup/down scripts,
+# but the below conditions single out when ifup[-*] is executing it.
+# We are then self-sufficient on vhost-bringup here, without any other
+# external modification required.
+# Regular ifup-eth comes along and configures regular ifcfg-$dev -given
+# IP addressing etc, after this config file has been executed.
+if [ -n "$BASH_SOURCE" -a ${#BASH_SOURCE[@]} = 3 -a `echo ${BASH_SOURCE[2]} | grep -c 'ifup'` = 1 ]; then
+	echo "We're coming up!"
+	if [ -f /sys/class/net/${PHY}/address ]; then
+		mac=`cat /sys/class/net/${PHY}/address`
+	else
+		echo "fatal: physical interface ${PHY} does not exist"
+		exit 1
+	fi
+	# load vrouter if needed
+	if ! lsmod | grep -q ^vrouter; then
+		echo "loading vrouter, trying insmod"
+		insmod `rpm -ql contrail-vrouter | grep vrouter.ko`
+	fi
+
+	if ! lsmod | grep -q ^vrouter; then
+		echo "fatal: vrouter not loaded"
+		exit 1
+	fi
+
+	if [ -z "$VRF" ]; then
+		VRF=0
+	fi
+	vif --create $DEVICE --mac $mac
+	vif --add $PHY    --mac $mac --vrf $VRF --type physical --vhost-phys
+	vif --add $DEVICE --mac $mac --vrf $VRF --type vhost    --xconnect $PHY
+fi
